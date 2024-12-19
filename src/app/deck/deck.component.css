@@ -1,0 +1,9 @@
+.deck-container {
+  margin: 20px;
+}
+
+.deck-status {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}

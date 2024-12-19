@@ -1,4 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-toolvbar {
+  margin-bottom: 20px;
+}
+
+.actions{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card-display{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
