@@ -29,6 +29,7 @@
   transition: transform 0.6s ease;
 }
 
+/* ensures the front of the card isn't visible when first dealt */
 .card .front {
   transform: rotateY(180deg);
 }

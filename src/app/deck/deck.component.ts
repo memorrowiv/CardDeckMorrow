@@ -48,23 +48,41 @@ export class DeckComponent implements OnInit {
     this.initializeDeck();
   }
 
-  initializeDeck() {
-    const cards: Card[] = [];
-    SUITS.forEach(suit => {
-      RANKS.forEach(rank => {
+  initializeDeck(cards: Card[] = [], shuffled: boolean = false, dealtCards: Card[] = []) {
+  console.log('Initializing Deck:', { cards, shuffled, dealtCards });
+
+  if (cards.length > 0) {
+    // Use provided cards
+    this.deck = {
+      cards,
+      remainingCards: cards.length, // Set remainingCards as the number of cards
+      shuffled,
+    };
+    this.dealtCards = dealtCards;
+  } else {
+    // Default: Initialize a fresh deck
+    const freshDeck: Card[] = [];
+    SUITS.forEach((suit) => {
+      RANKS.forEach((rank) => {
         const imageName = `${rank[0]}${suit[0]}.png`;
-        cards.push({
-          rank,
-          suit,
-          imageUrl: `/images/${imageName}`
-        });
+        freshDeck.push({ rank, suit, imageUrl: `/images/${imageName}` });
       });
     });
 
-    this.deck = { cards, remainingCards: 52, shuffled: false };
+    this.deck = {
+      cards: freshDeck,
+      remainingCards: freshDeck.length, // Total cards in a fresh deck
+      shuffled: false,
+    };
     this.dealtCards = [];
-    this.dealtCardsChange.emit(this.dealtCards);
   }
+
+  this.dealtCardsChange.emit(this.dealtCards);
+}
+
+
+
+
 
   shuffleDeck() {
     this.deck.cards = this.deck.cards.sort(() => Math.random() - 0.5);

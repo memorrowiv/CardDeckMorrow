@@ -69,7 +69,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loadDeckState;
+    this.loadDeckState();
   }
 
   ngAfterViewInit(): void {
@@ -104,6 +104,7 @@ export class AppComponent implements AfterViewInit {
     const deckState = {
       remainingCards: this.deckComponent.deck['remainingCards'],
       shuffled: this.deckComponent.deck['shuffled'],
+      dealtCards: this.dealtCards,
     };
 
     try {
@@ -116,23 +117,47 @@ export class AppComponent implements AfterViewInit {
   }
 
   private async loadDeckState(): Promise<void> {
-    try {
-      const deckRef = doc(this.firestore, 'decks', 'currentDeck');
-      const deckDoc = await getDoc(deckRef);
-      if (deckDoc.exists()){
-        const deckState = deckDoc.data();
-        console.log('Loaded deck state', deckState)
-        if (deckState) {
-          this.deckComponent.deck['remainingCards'] = deckState['remainingCards'];
-          this.deckComponent.deck['shuffled'] = deckState['shuffled'];
-        }
-      } else {
-        console.log('Deck state not found');
+    const SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+  try {
+    const deckRef = doc(this.firestore, 'decks', 'currentDeck');
+    const deckDoc = await getDoc(deckRef);
+    if (deckDoc.exists()) {
+      const deckState = deckDoc.data();
+      console.log('Loaded deck state', deckState);
+
+      if (deckState) {
+        const dealtCards: Card[] = deckState['dealtCards'] || [];
+        const remainingCount = deckState['remainingCards'] || 0;
+        const totalDeck: Card[] = [...dealtCards];
+
+        // Ensure SUITS and RANKS are in scope
+        SUITS.forEach((suit) => {
+          RANKS.forEach((rank) => {
+            const card = { rank, suit, imageUrl: `/images/${rank[0]}${suit[0]}.png` };
+
+            // Explicitly define the type of `d` as Card in the find function
+            if (!dealtCards.find((d: Card) => d.rank === card.rank && d.suit === card.suit)) {
+              totalDeck.push(card);
+            }
+          });
+        });
+
+        const remainingCards = totalDeck.slice(0, remainingCount);
+
+        this.deckComponent.initializeDeck(remainingCards, deckState['shuffled'], dealtCards);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      console.log('Deck state not found');
     }
+  } catch (error) {
+    console.error(error);
   }
+}
+
+
+
 
   private async saveDealtCardsHistory(cards: Card[]): Promise<void> {
     try {
