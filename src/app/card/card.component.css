@@ -30,11 +30,11 @@
 }
 
 .card .front {
-  transform: rotateY(0deg);
+  transform: rotateY(180deg);
 }
 
 .card .back {
-  transform: rotateY(180deg);
+  transform: rotateY(0deg);
 }
 
 .card-image {
