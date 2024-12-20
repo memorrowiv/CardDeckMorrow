@@ -1,59 +1,36 @@
-# CardManagerMorrow
+# Card Deck Manager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Introduction
 
-## Development server
+The **Card Deck Manager** is a card management application built with **Angular**, **Material Design**, and **Firebase**. It allows users to shuffle, deal, and reset a standard deck of 52 playing cards. The state of the deck is saved to **Firebase Firestore**, allowing users to resume their session after reloading. This project was developed to assess skills in Angular, UI/UX design, and best practices, including the SOLID principles and use of interfaces.
 
-To start a local development server, run:
+## Live Demo
 
-```bash
-ng serve
-```
+You can access the live version of the app here:  
+[**Live Demo**](insert-your-live-url)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Features
 
-## Code scaffolding
+- **Deck Shuffling and Dealing**: Shuffle and deal cards from a standard 52-card deck.
+- **History of Dealt Cards**: View previously dealt cards.
+- **Reset Deck**: Restore the deck to its full 52 cards.
+- **Firebase Integration**: The current state of the deck is stored in Firestore and persists between sessions.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Setup and Running Locally
 
-```bash
-ng generate component component-name
-```
+If you wish to run the project locally, follow the steps below.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Prerequisites
 
-```bash
-ng generate --help
-```
+Ensure you have the following installed:
 
-## Building
+- [Node.js](https://nodejs.org/en/) (recommended version: 18.x or higher)
+- [Angular CLI](https://angular.io/cli) (install with `npm install -g @angular/cli`)
+- Firebase project and Firestore setup (create one on [Firebase Console](https://console.firebase.google.com/))
 
-To build the project run:
+### Steps to Run Locally
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/memorrowiv/CardDeckMorrow.git
+   cd CardDeckMorrow
