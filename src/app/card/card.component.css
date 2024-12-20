@@ -8,7 +8,6 @@
   margin: 0 auto;
 }
 
-
 @media (max-width: 768px) {
   .card-image {
     max-width: 120px;
@@ -19,4 +18,59 @@
   .card-image {
     max-width: 100px;
   }
+}
+
+/* Container to give the perspective effect */
+.card-container {
+  perspective: 1000px;  /* Adds depth for 3D effect */
+}
+
+/* Card element */
+.card {
+  width: 100px;
+  height: 150px;
+  transform-style: preserve-3d;  /* Ensures 3D transformation */
+  transition: transform 0.6s ease;  /* Smooth transition */
+  position: relative; /* Important for proper 3D positioning */
+  box-shadow: none;  /* Remove any unwanted shadow */
+  background-color: transparent; /* Ensure no background color is applied */
+}
+
+/* Both sides of the card */
+.card .front, .card .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backface-visibility: hidden;  /* Prevents showing the back side while flipping */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease; /* Smooth transition for flip */
+}
+
+/* Front face is displayed by default */
+.card .front {
+  z-index: 1; /* Ensure front is on top initially */
+}
+
+/* Back face is rotated 180 degrees initially */
+.card .back {
+  transform: rotateY(180deg);  /* Back face is rotated 180 degrees */
+  z-index: 0; /* Ensure back is hidden initially */
+}
+
+/* When the card is flipped, rotate the entire card */
+
+/* When flipped, adjust z-index to show back face */
+.card.flipped .front {
+  z-index: 0; /* Move front behind */
+}
+
+.card.flipped .back {
+  z-index: 1; /* Bring back face to the front */
+  transform: rotateY(0deg);  /* Rotate back face to be visible */
 }

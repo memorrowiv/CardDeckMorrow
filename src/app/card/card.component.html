@@ -1,8 +1,17 @@
-<mat-card class="card">
+<mat-card [@dealCard]="cardState" class="card" (click)="flipCard()">
   <mat-card-content>
-    <div class="card-content">
+    <div class="card-container">
+      <div class="card" [ngClass]="flipState">
+        <!-- Front side of the card -->
+        <div class="front">
+          <img [src]="card.imageUrl" alt="{{ card.rank }} of {{ card.suit }}" class="card-image" />
+        </div>
 
-      <img [src]="card.imageUrl" alt="{{ card.rank }} of {{ card.suit }}" class="card-image" />
+        <!-- Back side of the card -->
+        <div class="back">
+          <img src="/images/CB.png" alt="Card Back" class="card-image" />
+        </div>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

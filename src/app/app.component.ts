@@ -14,7 +14,7 @@ import {initializeApp} from 'firebase/app';
 import {getFirestore, Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs} from 'firebase/firestore';
 import { environment } from '../environments/environment';
 import {DealtCardsDialogComponent} from './dealt-cards-dialog/dealt-cards-dialog.component';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
@@ -33,6 +33,25 @@ import {DealtCardsDialogComponent} from './dealt-cards-dialog/dealt-cards-dialog
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  animations: [
+  trigger('dealCard', [
+    state('initial', style({ opacity: 0, transform: 'scale(0)' })),
+    state('final', style({ opacity: 1, transform: 'scale(1)' })),
+    transition('initial => final', [
+      animate('0.5s ease-out')
+    ]),
+  ]),
+  trigger('flipCard', [
+    state('flipped', style({ transform: 'rotateY(180deg)' })),
+    state('unflipped', style({ transform: 'rotateY(0deg)' })),
+    transition('unflipped => flipped', [
+      animate('0.6s ease-in-out')
+    ]),
+    transition('flipped => unflipped', [
+      animate('0.6s ease-in-out')
+    ])
+  ])
+  ]
 })
 export class AppComponent implements AfterViewInit {
   title = 'CardManagerMorrow';
