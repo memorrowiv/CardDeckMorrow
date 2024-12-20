@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Dealt Cards History</h2>
+<mat-dialog-content>
+  <div *ngFor="let card of data.dealtCards">
+    <mat-card>
+      <mat-card-content>
+        <div>
+          <h4>{{ card.rank }} of {{ card.suit }}</h4>
+          <img [src]="card.imageUrl" alt="{{ card.rank }} of {{ card.suit }}" width="50" />
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
