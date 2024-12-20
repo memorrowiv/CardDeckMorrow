@@ -1,11 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
-import { Deck } from '../models/deck.model';
-import { Card } from '../models/card.model';
 import { CommonModule } from '@angular/common';
 import {CardComponent} from '../card/card.component';
+
+import { Deck } from '../models/deck.model';
+import { Card } from '../models/card.model';
+
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-
+// Defines the Suits and Ranks for the cards. Can adjust here if we want to make different cards
 const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 const SUITS = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
 
@@ -35,6 +37,8 @@ const SUITS = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     ])
   ]
 })
+
+// Ensures the dealt is built and/or loaded on startup by calling the InitializeDeck function
 export class DeckComponent implements OnInit {
   deck!: Deck;
   dealtCards: Card[] = [];
@@ -48,24 +52,25 @@ export class DeckComponent implements OnInit {
     this.initializeDeck();
   }
 
+  // This is what actually load the deck. It checks for a current deck state first
   initializeDeck(cards: Card[] = [], shuffled: boolean = false, dealtCards: Card[] = []) {
   console.log('Initializing Deck:', { cards, shuffled, dealtCards });
 
   if (cards.length > 0) {
-    // Use provided cards
+    // If the array of cards is there it will load them
     this.deck = {
       cards,
-      remainingCards: cards.length, // Set remainingCards as the number of cards
+      remainingCards: cards.length, // This sets the remainingCards number
       shuffled,
     };
-    this.dealtCards = dealtCards;
+    this.dealtCards = dealtCards; // Sets the dealtCards on the screen to what was loaded
   } else {
-    // Default: Initialize a fresh deck
+    //Initializes a fresh deck
     const freshDeck: Card[] = [];
     SUITS.forEach((suit) => {
       RANKS.forEach((rank) => {
         const imageName = `${rank[0]}${suit[0]}.png`;
-        freshDeck.push({ rank, suit, imageUrl: `/images/${imageName}` });
+        freshDeck.push({ rank, suit, imageUrl: `/images/${imageName}` }); //Dynamically generates the image url
       });
     });
 
@@ -84,6 +89,7 @@ export class DeckComponent implements OnInit {
 
 
 
+//Simple function to shuffle cards
   shuffleDeck() {
     this.deck.cards = this.deck.cards.sort(() => Math.random() - 0.5);
     this.deck.shuffled = true;
@@ -93,30 +99,30 @@ export class DeckComponent implements OnInit {
   }
 
   dealCards(number: number) {
-  if (number > this.deck.remainingCards) {
+  if (number > this.deck.remainingCards) { //Checks to ensure enough cards remain
     alert('Not enough cards left in the deck!');
     return;
   }
 
-  const dealt = this.deck.cards.splice(0, number);
+  const dealt = this.deck.cards.splice(0, number); //Takes in the number of cards a user wants dealt
   this.dealtCards = [...this.dealtCards, ...dealt];
-  this.deck.remainingCards -= number;
-  this.dealtCardsChange.emit(this.dealtCards);
+  this.deck.remainingCards -= number; //Does the math to calculate how many cards remain
+  this.dealtCardsChange.emit(this.dealtCards); //Commits the change
 
-  // Manually trigger change detection after the cards are dealt
+  // Manually triggers change detection after the cards are dealt
   this.cdr.detectChanges();
 
-  // Wait for the next Angular change detection cycle to trigger animations
+  // Waita for the next Angular change detection cycle to trigger animations
   setTimeout(() => {
   this.cardComponents.toArray().forEach((cardComponent, index) => {
     setTimeout(() => {
-      cardComponent.flipState = 'flipped';  // Manually trigger the flip state
-    }, index * 100);  // Delay the flip for each card
+      cardComponent.flipState = 'flipped';
+    }, index * 100);
   });
-  }, 100);  // Delay before starting flip animations
+  }, 100);  // Delays before starting flip animations
 }
 
-  resetDeck() {
+  resetDeck() {   //Allows users to reinitialize a deck
     this.initializeDeck();
   }
 }

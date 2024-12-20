@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../models/card.model';
+
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -30,6 +32,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ])
   ]
 })
+
 export class CardComponent implements OnInit {
   @Input() card!: Card;
   cardState = 'initial'; // For deal card animation
@@ -37,11 +40,12 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.cardState = 'final';  // Trigger the deal card animation after initialization
+      this.cardState = 'final';
     }, 0);
   }
 
   flipCard(): void {
+    //Set logs throughout for assistance with debugging
   console.log('Before flip:', this.flipState);
   this.flipState = this.flipState === 'unflipped' ? 'flipped' : 'unflipped';
   console.log('After flip:', this.flipState);

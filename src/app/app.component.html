@@ -2,6 +2,7 @@
 <span>Card Deck Manager</span>
 </mat-toolbar>
 
+<!-- Grabs the number of cards a player wants dealt -->
 <div class="centered-content">
   <h1>
     How many cards would you like me to deal?
@@ -12,6 +13,7 @@
   </mat-form-field>
 </div>
 
+<!-- The buttons the user will utilize -->
 <div class="actions">
   <button mat-raised-button color="accent" (click)="shuffleDeck()">Shuffle Deck</button>
   <button mat-raised-button color="primary" (click)="dealCards()">Deal Cards</button>
@@ -20,6 +22,7 @@
 
 </div>
 
+<!-- displays the cards which have been dealt -->
 <div class="card-display">
   <app-card *ngFor="let card of dealtCards" [card]="card"></app-card>
 </div>

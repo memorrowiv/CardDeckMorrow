@@ -1,20 +1,23 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import { CommonModule} from '@angular/common';
-import { DeckComponent} from './deck/deck.component';
-import {CardComponent} from './card/card.component';
+import {initializeApp} from 'firebase/app';
+import { CommonModule } from '@angular/common';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Card } from './models/card.model';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {FormsModule} from '@angular/forms';
-import {initializeApp} from 'firebase/app';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+
 import {getFirestore, Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs} from 'firebase/firestore';
-import { environment } from '../environments/environment';
-import {DealtCardsDialogComponent} from './dealt-cards-dialog/dealt-cards-dialog.component';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+
+import { DeckComponent} from './deck/deck.component';
+import { CardComponent } from './card/card.component';
+import { DealtCardsDialogComponent } from './dealt-cards-dialog/dealt-cards-dialog.component';
+import { Card } from './models/card.model';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -55,15 +58,15 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class AppComponent implements AfterViewInit {
   title = 'CardManagerMorrow';
-  numCards: number = 5;
+  numCards: number = 5; //Defaults cards dealt to 5
 
   @ViewChild(DeckComponent) deckComponent!: DeckComponent;
-  dealtCards: Card[] = [];
+  dealtCards: Card[] = []; //Makes sure it has the dealtCards array value
 
   private firestore: Firestore;
 
   constructor(private dialog: MatDialog) {
-    const app = initializeApp(environment.firebaseConfig);
+    const app = initializeApp(environment.firebaseConfig); //Initializes app through firebase
     this.firestore = getFirestore(app);
     console.log('Firebase initialized:', app);
   }
@@ -116,6 +119,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
+  //Runs series of checks to ensure it is properly loading deck state. Constants redefined here for ease of use
   private async loadDeckState(): Promise<void> {
     const SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
     const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -132,12 +136,13 @@ export class AppComponent implements AfterViewInit {
         const remainingCount = deckState['remainingCards'] || 0;
         const totalDeck: Card[] = [...dealtCards];
 
-        // Ensure SUITS and RANKS are in scope
+
         SUITS.forEach((suit) => {
           RANKS.forEach((rank) => {
             const card = { rank, suit, imageUrl: `/images/${rank[0]}${suit[0]}.png` };
 
-            // Explicitly define the type of `d` as Card in the find function
+
+            //Ensures the remaining deck doesnt includes cards already dealt
             if (!dealtCards.find((d: Card) => d.rank === card.rank && d.suit === card.suit)) {
               totalDeck.push(card);
             }
@@ -169,6 +174,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
+  //Keeps a running history of all cards dealt
   viewHistory(): void {
     const historyRef = collection(this.firestore, 'dealtCards');
     getDocs(historyRef)
