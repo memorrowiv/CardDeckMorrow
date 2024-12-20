@@ -31,10 +31,11 @@ export class DeckComponent implements OnInit {
     const cards: Card[] = [];
     SUITS.forEach(suit => {
       RANKS.forEach(rank => {
+        const imageName = `${rank[0]}${suit[0]}.png`; //This should grab first number or letter suit letter. 10 will be 1
         cards.push({
           rank,
           suit,
-          imageUrl: '' //need to generate images
+          imageUrl: `/images/${imageName}` //Dynamically generates image name
         });
       });
     });

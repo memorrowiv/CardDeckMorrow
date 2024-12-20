@@ -4,6 +4,8 @@
       <span [style.color]="card.suit === 'Hearts' || card.suit === 'Diamonds' ? 'red' : 'black'">
         {{ card.rank }} of {{ card.suit }}
       </span>
+
+      <img [src]="card.imageUrl" alt="{{ card.rank }} of {{ card.suit }}" class="card-image" />
     </div>
   </mat-card-content>
 </mat-card>

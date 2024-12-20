@@ -1,0 +1,22 @@
+/* CSS for card image */
+.card-image {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 768px) {
+  .card-image {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-image {
+    max-width: 100px;
+  }
+}
