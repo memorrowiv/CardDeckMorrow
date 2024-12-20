@@ -1,7 +1,7 @@
 /* CSS for card image */
 .card-image {
   width: 100%;
-  max-width: 150px;
+  max-width: 200px;
   height: auto;
   object-fit: contain;
   display: block;

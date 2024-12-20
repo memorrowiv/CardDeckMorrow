@@ -1,0 +1,25 @@
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+mat-form-field {
+  margin-top: 16px;
+}
+
+h1 {
+  font-size: 2rem; /* Make the heading font size responsive */
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem; /* Adjust font size on small screens */
+  }
+
+  mat-form-field {
+    width: 90%; /* Make form field wider on small screens */
+  }
+}

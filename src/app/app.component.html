@@ -1,10 +1,20 @@
-<mat-toolbar color="primary">
-  <span>Card Deck Manager</span>
+<mat-toolbar>
+<span>Card Deck Manager</span>
 </mat-toolbar>
+
+<div class="centered-content">
+  <h1>
+    How many cards would you like me to deal?
+  </h1>
+
+  <mat-form-field appearance="fill">
+    <input matInput [(ngModel)]="numCards" placeholder="Number of cards you want dealt">
+  </mat-form-field>
+</div>
 
 <div class="actions">
   <button mat-raised-button color="accent" (click)="shuffleDeck()">Shuffle Deck</button>
-  <button mat-raised-button color="primary" (click)="dealCards()">Deal 5 Cards</button>
+  <button mat-raised-button color="primary" (click)="dealCards()">Deal Cards</button>
   <button mat-raised-button (click)="resetDeck()">Reset Deck</button>
 </div>
 

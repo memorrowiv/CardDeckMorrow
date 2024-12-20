@@ -1,9 +1,6 @@
 <mat-card class="card">
   <mat-card-content>
     <div class="card-content">
-      <span [style.color]="card.suit === 'Hearts' || card.suit === 'Diamonds' ? 'red' : 'black'">
-        {{ card.rank }} of {{ card.suit }}
-      </span>
 
       <img [src]="card.imageUrl" alt="{{ card.rank }} of {{ card.suit }}" class="card-image" />
     </div>
