@@ -7,7 +7,7 @@ The **Card Deck Manager** is a card management application built with **Angular*
 ## Live Demo
 
 You can access the live version of the app here:  
-[**Live Demo**](insert-your-live-url)
+[**Live Demo**](https://card-deck-manager-morrow.web.app/)
 
 ## Features
 
@@ -34,3 +34,45 @@ Ensure you have the following installed:
    ```bash
    git clone https://github.com/memorrowiv/CardDeckMorrow.git
    cd CardDeckMorrow
+2. ### Install the Dependencies:
+
+``bash
+npm install
+
+3. ### Set up Firebase:
+
+  1. Create a Firebase project.
+  2. Obtain your Firebase config and store it in the `src/environments/environment.ts` file.
+
+---
+
+4. ### Run the Application:
+
+  ``bash
+  ng serve
+
+5. ### Open your browser and visit http://localhost:4200.
+
+## Approach and Assumptions
+
+- **SOLID Principles**: Code adheres to SOLID principles to ensure maintainability and scalability.
+- **Material Design**: Used Angular Material for a clean, responsive interface.
+- **Firebase**: Integrated Firebase for persisting deck state and handling history.
+
+---
+
+## Deployment
+
+The app is deployed on Firebase Hosting. You can view the live demo at the URL mentioned above.
+
+---
+
+## Evaluation Criteria
+
+The following aspects were considered when evaluating the project:
+
+- **Functionality**: The app meets the outlined requirements (deck shuffling, dealing, and resetting).
+- **Code Quality**: The code is clean, readable, and well-organized.
+- **Use of Material Design**: Angular Material components were effectively utilized for UI/UX.
+- **Best Practices**: SOLID principles and interfaces were applied appropriately.
+- **Firebase Integration**: Firebase functionality was implemented correctly to persist deck state.
