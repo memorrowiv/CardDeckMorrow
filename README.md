@@ -39,9 +39,10 @@ Ensure you have the following installed:
 
 3. ### Set up Firebase:
 
-a, Create a Firebase project.
-b.Obtain your Firebase config and store it in the `src/environments/environment.ts` file.
-
+````
+a. Create a Firebase project.
+b. Obtain your Firebase config and store it in the `src/environments/environment.ts` file.
+````
 ---
 
 4. ### Run the Application:
