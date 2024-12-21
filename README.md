@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The **Card Deck Manager** is a card management application built with **Angular**, **Material Design**, and **Firebase**. It allows users to shuffle, deal, and reset a standard deck of 52 playing cards. The state of the deck is saved to **Firebase Firestore**, allowing users to resume their session after reloading. This project was developed to assess skills in Angular, UI/UX design, and best practices, including the SOLID principles and use of interfaces.
+The **Card Deck Manager** is a card management application built with **Angular**, **Material Design**, and **Firebase**. It allows users to shuffle, deal, and reset a standard deck of 52 playing cards. The state of the deck is saved to **Firebase Firestore**, allowing users to resume their session after reloading.
 
 ## Live Demo
 
