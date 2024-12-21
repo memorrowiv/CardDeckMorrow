@@ -36,21 +36,19 @@ Ensure you have the following installed:
    cd CardDeckMorrow
 2. ### Install the Dependencies:
 
-``bash
-npm install
 
 3. ### Set up Firebase:
 
-  1. Create a Firebase project.
-  2. Obtain your Firebase config and store it in the `src/environments/environment.ts` file.
+a, Create a Firebase project.
+b.Obtain your Firebase config and store it in the `src/environments/environment.ts` file.
 
 ---
 
 4. ### Run the Application:
 
-  ``bash
+  ```bash
   ng serve
-
+```
 5. ### Open your browser and visit http://localhost:4200.
 
 ## Approach and Assumptions
