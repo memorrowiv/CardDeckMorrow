@@ -85,10 +85,6 @@ export class DeckComponent implements OnInit {
   this.dealtCardsChange.emit(this.dealtCards);
 }
 
-
-
-
-
 //Simple function to shuffle cards
   shuffleDeck() {
     this.deck.cards = this.deck.cards.sort(() => Math.random() - 0.5);
@@ -112,7 +108,7 @@ export class DeckComponent implements OnInit {
   // Manually triggers change detection after the cards are dealt
   this.cdr.detectChanges();
 
-  // Waita for the next Angular change detection cycle to trigger animations
+  // Wait for the next Angular change detection cycle to trigger animations
   setTimeout(() => {
   this.cardComponents.toArray().forEach((cardComponent, index) => {
     setTimeout(() => {
