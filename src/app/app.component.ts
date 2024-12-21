@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {initializeApp} from 'firebase/app';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { initializeApp } from 'firebase/app';
 import { CommonModule } from '@angular/common';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,10 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
-import {getFirestore, Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs} from 'firebase/firestore';
+import { getFirestore, Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-import { DeckComponent} from './deck/deck.component';
+import { DeckComponent } from './deck/deck.component';
 import { CardComponent } from './card/card.component';
 import { DealtCardsDialogComponent } from './dealt-cards-dialog/dealt-cards-dialog.component';
 import { Card } from './models/card.model';
