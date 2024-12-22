@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, inject, ViewChild} from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +18,7 @@ import { CardComponent } from './card/card.component';
 import { DealtCardsDialogComponent } from './dealt-cards-dialog/dealt-cards-dialog.component';
 import { Card } from './models/card.model';
 import { environment } from '../environments/environment';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild(DeckComponent) deckComponent!: DeckComponent;
   dealtCards: Card[] = []; //Makes sure it has the dealtCards array value
+  destroyRef = inject(DestroyRef);
 
   private firestore: Firestore;
 
@@ -76,7 +78,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.deckComponent?.dealtCardsChange.subscribe(cards => {
+    this.deckComponent?.dealtCardsChange.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(cards => {
       this.dealtCards = cards;
       this.saveDealtCardsHistory(cards);
     })
