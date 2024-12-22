@@ -68,13 +68,15 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.deckComponent?.dealtCardsChange.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(cards => {
-      this.dealtCards = cards;
-      this.saveDealtCardsHistory(cards);
-    })
-  }
+  console.log('deckComponent:', this.deckComponent);
+  this.deckComponent?.dealtCardsChange.pipe(
+    takeUntilDestroyed(this.destroyRef),
+  ).subscribe(cards => {
+    console.log('Dealt cards changed:', cards);
+    this.dealtCards = cards;
+    this.saveDealtCardsHistory(cards);
+  });
+}
 
   shuffleDeck(): void{
     if (this.deckComponent) {
