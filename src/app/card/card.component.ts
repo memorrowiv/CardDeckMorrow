@@ -4,7 +4,7 @@ import { Card } from '../models/card.model';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {createDealCardAnimation, createFlipCardAnimation} from '../models/animation.model';
 
 @Component({
   selector: 'app-card',
@@ -12,24 +12,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   imports: [CommonModule, MatCardModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
- animations: [
-  trigger('dealCard', [
-    state('initial', style({ opacity: 0, transform: 'scale(0)' })),
-    state('final', style({ opacity: 1, transform: 'scale(1)' })),
-    transition('initial => final', [
-      animate('0.5s ease-out')
-    ]),
-  ]),
-  trigger('flipCard', [
-    state('flipped', style({ transform: 'rotateY(180deg)' })),
-    state('unflipped', style({ transform: 'rotateY(0deg)' })),
-    transition('unflipped => flipped', [
-      animate('0.6s ease-in-out')
-    ]),
-    transition('flipped => unflipped', [
-      animate('0.6s ease-in-out')
-    ])
-  ])
+ animations: [ createDealCardAnimation(),   // Use the function that returns the animation trigger
+    createFlipCardAnimation(),   // Use the function that returns the animation trigger
   ]
 })
 

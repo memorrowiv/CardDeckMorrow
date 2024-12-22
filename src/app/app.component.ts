@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Suit, SUITS} from './models/suit.model';
 import {Rank, RANKS} from './models/rank.model';
+import {createDealCardAnimation, createFlipCardAnimation} from './models/animation.model';
 
 
 @Component({
@@ -39,24 +40,8 @@ import {Rank, RANKS} from './models/rank.model';
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [
-  trigger('dealCard', [
-    state('initial', style({ opacity: 0, transform: 'scale(0)' })),
-    state('final', style({ opacity: 1, transform: 'scale(1)' })),
-    transition('initial => final', [
-      animate('0.5s ease-out')
-    ]),
-  ]),
-  trigger('flipCard', [
-    state('flipped', style({ transform: 'rotateY(180deg)' })),
-    state('unflipped', style({ transform: 'rotateY(0deg)' })),
-    transition('unflipped => flipped', [
-      animate('0.6s ease-in-out')
-    ]),
-    transition('flipped => unflipped', [
-      animate('0.6s ease-in-out')
-    ])
-  ])
+  animations: [ createDealCardAnimation(),   // Use the function that returns the animation trigger
+    createFlipCardAnimation(),   // Use the function that returns the animation trigger
   ]
 })
 export class AppComponent implements AfterViewInit {
