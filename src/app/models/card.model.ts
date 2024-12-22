@@ -1,5 +1,8 @@
+import {Suit} from './suit.model';
+import {Rank} from './rank.model';
+
 export interface Card {
-  suit: string;
-  rank: string;
+  suit: Suit;
+  rank: Rank['value'];
   imageUrl: string;
 }

@@ -4,12 +4,12 @@ import {CardComponent} from '../card/card.component';
 
 import { Deck } from '../models/deck.model';
 import { Card } from '../models/card.model';
+import { Suit, SUITS } from '../models/suit.model';
+import { Rank, RANKS } from '../models/rank.model';
+
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-// Defines the Suits and Ranks for the cards. Can adjust here if we want to make different cards
-const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-const SUITS = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
 
 @Component({
   selector: 'app-deck',
@@ -60,23 +60,23 @@ export class DeckComponent implements OnInit {
     // If the array of cards is there it will load them
     this.deck = {
       cards,
-      remainingCards: cards.length, // This sets the remainingCards number
+      remainingCards: cards.length,
       shuffled,
     };
-    this.dealtCards = dealtCards; // Sets the dealtCards on the screen to what was loaded
+    this.dealtCards = dealtCards;
   } else {
-    //Initializes a fresh deck
+    // Initializes a fresh deck
     const freshDeck: Card[] = [];
-    SUITS.forEach((suit) => {
-      RANKS.forEach((rank) => {
-        const imageName = `${rank[0]}${suit[0]}.png`;
-        freshDeck.push({ rank, suit, imageUrl: `/images/${imageName}` }); //Dynamically generates the image url
+    SUITS.forEach((suit: Suit) => {
+      RANKS.forEach((rank: Rank) => {
+        const imageName = `${rank.value[0]}${suit.value[0]}.png`;
+        freshDeck.push({ rank: rank.value, suit, imageUrl: `/images/${imageName}` });
       });
     });
 
     this.deck = {
       cards: freshDeck,
-      remainingCards: freshDeck.length, // Total cards in a fresh deck
+      remainingCards: freshDeck.length,
       shuffled: false,
     };
     this.dealtCards = [];

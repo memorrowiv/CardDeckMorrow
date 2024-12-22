@@ -19,6 +19,8 @@ import { DealtCardsDialogComponent } from './dealt-cards-dialog/dealt-cards-dial
 import { Card } from './models/card.model';
 import { environment } from '../environments/environment';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Suit, SUITS} from './models/suit.model';
+import {Rank, RANKS} from './models/rank.model';
 
 
 @Component({
@@ -123,11 +125,8 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  //Runs series of checks to ensure it is properly loading deck state. Constants redefined here for ease of use
+  //Runs series of checks to ensure it is properly loading deck state.
   private async loadDeckState(): Promise<void> {
-    const SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-    const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
   try {
     const deckRef = doc(this.firestore, 'decks', 'currentDeck');
     const deckDoc = await getDoc(deckRef);
@@ -136,24 +135,22 @@ export class AppComponent implements AfterViewInit {
       console.log('Loaded deck state', deckState);
 
       if (deckState) {
-        const dealtCards: Card[] = deckState['dealtCards'] || [];
-        const remainingCount = deckState['remainingCards'] || 0;
+        const dealtCards: Card[] = (deckState['dealtCards'] || []) as Card[];
+        const remainingCount: number = deckState['remainingCards'] || 0;
         const totalDeck: Card[] = [...dealtCards];
 
+        SUITS.forEach((suit: Suit) => {
+          RANKS.forEach((rank: Rank) => {
+            const card: Card = { rank: rank.value, suit, imageUrl: `/images/${rank.value[0]}${(suit as unknown as string)[0]}.png` };
 
-        SUITS.forEach((suit) => {
-          RANKS.forEach((rank) => {
-            const card = { rank, suit, imageUrl: `/images/${rank[0]}${suit[0]}.png` };
-
-
-            //Ensures the remaining deck doesnt includes cards already dealt
+            // Ensure the remaining deck doesn't include cards already dealt
             if (!dealtCards.find((d: Card) => d.rank === card.rank && d.suit === card.suit)) {
               totalDeck.push(card);
             }
           });
         });
 
-        const remainingCards = totalDeck.slice(0, remainingCount);
+        const remainingCards = totalDeck.slice(0, Math.min(remainingCount, totalDeck.length));
 
         this.deckComponent.initializeDeck(remainingCards, deckState['shuffled'], dealtCards);
       }
@@ -164,6 +161,7 @@ export class AppComponent implements AfterViewInit {
     console.error(error);
   }
 }
+
 
 
 
