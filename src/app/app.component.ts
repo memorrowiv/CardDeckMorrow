@@ -11,12 +11,13 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
 import { getFirestore, Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+
 
 import { DeckComponent } from './deck/deck.component';
 import { CardComponent } from './card/card.component';
 import { DealtCardsDialogComponent } from './dealt-cards-dialog/dealt-cards-dialog.component';
 import { Card } from './models/card.model';
+import {DeckService} from './services/deck.service';
 import { environment } from '../environments/environment';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Suit, SUITS} from './models/suit.model';
@@ -54,7 +55,9 @@ export class AppComponent implements AfterViewInit {
 
   private firestore: Firestore;
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private deckService: DeckService,
+    private dialog: MatDialog) {
     const app = initializeApp(environment.firebaseConfig); //Initializes app through firebase
     this.firestore = getFirestore(app);
     console.log('Firebase initialized:', app);
@@ -75,21 +78,21 @@ export class AppComponent implements AfterViewInit {
 
   shuffleDeck(): void{
     if (this.deckComponent) {
-      this.deckComponent.shuffleDeck();
+      this.deckService.shuffleDeck(this.deckComponent.deck)
       this.saveDeckState();
     }
   }
 
   dealCards(): void {
     if (this.deckComponent) {
-      this.deckComponent.dealCards(this.numCards);
+      this.deckService.dealCards(this.deckComponent.deck, this.numCards);
       this.saveDeckState();
     }
   }
 
   resetDeck(): void {
     if (this.deckComponent) {
-      this.deckComponent.resetDeck();
+      this.resetDeck();
       this.saveDeckState();
     }
   }
@@ -136,8 +139,7 @@ export class AppComponent implements AfterViewInit {
         });
 
         const remainingCards = totalDeck.slice(0, Math.min(remainingCount, totalDeck.length));
-
-        this.deckComponent.initializeDeck(remainingCards, deckState['shuffled'], dealtCards);
+        this.deckService.initializeDeck(remainingCards, deckState['shuffled'], dealtCards);
       }
     } else {
       console.log('Deck state not found');
