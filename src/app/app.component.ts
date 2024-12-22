@@ -78,21 +78,21 @@ export class AppComponent implements AfterViewInit {
 
   shuffleDeck(): void{
     if (this.deckComponent) {
-      this.deckService.shuffleDeck(this.deckComponent.deck)
+      this.deckComponent.shuffleDeck();
       this.saveDeckState();
     }
   }
 
   dealCards(): void {
     if (this.deckComponent) {
-      this.deckService.dealCards(this.deckComponent.deck, this.numCards);
+      this.deckComponent.dealCards(this.numCards)
       this.saveDeckState();
     }
   }
 
   resetDeck(): void {
     if (this.deckComponent) {
-      this.resetDeck();
+      this.deckComponent.resetDeck();
       this.saveDeckState();
     }
   }

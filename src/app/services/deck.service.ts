@@ -27,7 +27,7 @@ export class DeckService {
     };
   }
 
-  private initializeFreshDeck(): Deck {
+  public initializeFreshDeck(): Deck {
     const freshDeck: Card[] = this.createFreshDeck();
     return {
       cards: freshDeck,

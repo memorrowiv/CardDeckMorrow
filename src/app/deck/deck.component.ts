@@ -64,6 +64,9 @@ export class DeckComponent implements OnInit {
   }
 
   resetDeck(): void {
-    this.initializeDeck();
-  }
+  // Directly initialize a fresh deck to reset everything
+  this.deck = this.deckService.initializeFreshDeck();
+  this.dealtCards = [];
+  this.dealtCardsChange.emit(this.dealtCards);
+}
 }
